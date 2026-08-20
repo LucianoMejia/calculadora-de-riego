@@ -1,0 +1,92 @@
+import React from 'react';
+import { View, Text, ScrollView, StyleSheet } from 'react-native';
+import { useRouter } from 'expo-router';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useSettings } from '../_layout';
+import { CalcCard } from '../../components/CalcCard';
+import { Accordion } from '../../components/Accordian';
+import { SymbolReference } from '../../components/SymbolReference';
+import { TOOLS, type ToolDef } from '../../lib/tools';
+import { CATEGORY_COLORS } from '../../lib/colors';
+import { Ionicons } from '@expo/vector-icons';
+
+const CATEGORY_LABELS: Record<string, string> = {
+  suelo: 'Propiedades del suelo',
+  riego: 'Programación de riego',
+};
+
+export default function HomeScreen() {
+  const router = useRouter();
+  const { settings } = useSettings();
+  const insets = useSafeAreaInsets();
+
+  const sueloTools = TOOLS.filter((t) => t.category === 'suelo');
+  const riegoTools = TOOLS.filter((t) => t.category === 'riego');
+
+  function handlePress(tool: ToolDef) {
+    router.push(`/calc/${tool.id}`);
+  }
+
+  return (
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={[styles.content, { paddingTop: insets.top + 12, paddingBottom: insets.bottom + 24 }]}
+    >
+      <Text style={styles.greeting}>
+        Hola, ¿qué quieres{'\n'}calcular hoy?
+      </Text>
+
+      <View style={styles.section}>
+        <Text style={styles.sectionHead}>{CATEGORY_LABELS.suelo}</Text>
+        {sueloTools.map((tool) => (
+          <CalcCard
+            key={tool.id}
+            icon={tool.icon as keyof typeof Ionicons.glyphMap}
+            name={tool.name}
+            description={tool.description}
+            accent={CATEGORY_COLORS[tool.colorKey as keyof typeof CATEGORY_COLORS] || settings.accent}
+            onPress={() => handlePress(tool)}
+          />
+        ))}
+      </View>
+
+      <View style={styles.section}>
+        <Text style={styles.sectionHead}>{CATEGORY_LABELS.riego}</Text>
+        {riegoTools.map((tool) => (
+          <CalcCard
+            key={tool.id}
+            icon={tool.icon as keyof typeof Ionicons.glyphMap}
+            name={tool.name}
+            description={tool.description}
+            accent={CATEGORY_COLORS[tool.colorKey as keyof typeof CATEGORY_COLORS] || settings.accent}
+            onPress={() => handlePress(tool)}
+          />
+        ))}
+      </View>
+
+      <Accordion title="Referencia rápida de símbolos" accent={settings.accent}>
+        <SymbolReference />
+      </Accordion>
+    </ScrollView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: '#F2F4F7' },
+  content: { paddingHorizontal: 20 },
+  greeting: {
+    fontSize: 28,
+    fontWeight: '700',
+    color: '#1A1D26',
+    marginBottom: 28,
+    lineHeight: 34,
+  },
+  section: { marginBottom: 8 },
+  sectionHead: {
+    fontSize: 13,
+    fontWeight: '500',
+    color: '#9BA3B5',
+    marginBottom: 10,
+    marginLeft: 4,
+  },
+});

@@ -1,0 +1,46 @@
+{
+  "expo": {
+    "name": "Calculadora de Riego",
+    "slug": "calculadora-de-riego",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "scheme": "calculadora-riego",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.josemejia.calculadora-riego",
+      "buildNumber": "1"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "package": "com.josemejia.calculadora-riego",
+      "versionCode": 1
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font",
+      [
+        "expo-updates",
+        {
+          "url": "https://u.expo.dev/xxx"
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "xxx"
+      }
+    }
+  }
+}
