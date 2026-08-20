@@ -11,6 +11,12 @@ const SOCIALS = [
   { name: 'LinkedIn', icon: 'logo-linkedin' as const, color: '#0A66C2', url: 'https://www.linkedin.com/in/jos%C3%A9-luciano-mej%C3%ADa-arias-a35806383/' },
 ];
 
+const FEATURES = [
+  { icon: 'calculator-outline' as const, title: '7 herramientas', text: 'Cálculos de riego agrícola respaldados por ecuaciones de ingeniería.' },
+  { icon: 'time-outline' as const, title: 'Historial', text: 'Guarda y consulta cada cálculo que realizas.' },
+  { icon: 'cloud-offline-outline' as const, title: '100% offline', text: 'Funciona sin conexión a internet en cualquier momento.' },
+];
+
 export default function AjustesScreen() {
   const { settings } = useSettings();
   const insets = useSafeAreaInsets();
@@ -48,15 +54,14 @@ export default function AjustesScreen() {
       style={styles.container}
       contentContainerStyle={[styles.content, { paddingTop: insets.top + 12, paddingBottom: insets.bottom + 24 }]}
     >
-      <Text style={styles.title}>Más</Text>
+      <Text style={styles.title}>Acerca de</Text>
 
       {/* Hero */}
       <View style={styles.heroCard}>
-        <View style={styles.heroIcon}>
-          <Ionicons name="leaf" size={32} color="#FFFFFF" />
-        </View>
         <Text style={styles.heroTitle}>Calculadora de Riego</Text>
-        <Text style={styles.heroSub}>Herramientas profesionales para el manejo del agua en suelo agrícola.</Text>
+        <Text style={styles.heroSub}>
+          Herramientas profesionales para el cálculo y manejo del agua en suelo agrícola. Diseñada para ingenieros agrónomos, estudiantes y productores.
+        </Text>
         <View style={styles.versionRow}>
           <Text style={styles.versionText}>v{APP_VERSION}</Text>
           <Text style={styles.versionDot}>·</Text>
@@ -75,6 +80,31 @@ export default function AjustesScreen() {
           <Ionicons name="chevron-forward" size={18} color="#FFFFFF" />
         </TouchableOpacity>
       )}
+
+      {/* Objetivo */}
+      <Text style={styles.groupHead}>OBJETIVO</Text>
+      <View style={styles.objectiveCard}>
+        <Text style={styles.objectiveText}>
+          Esta aplicación nace con el propósito de facilitar los cálculos de riego agrícola que diariamente realizan los profesionales del sector agropecuario.{'\n\n'}
+          Resuelve problemas comunes como la conversión de unidades, el cálculo de láminas de riego, la estimación de evapotranspiración y el balance hídrico del suelo, todo desde el celular sin necesidad de internet.
+        </Text>
+      </View>
+
+      {/* Características */}
+      <Text style={styles.groupHead}>CARACTERÍSTICAS</Text>
+      <View style={styles.group}>
+        {FEATURES.map((f, i) => (
+          <View key={i} style={[styles.featureRow, i < FEATURES.length - 1 && { borderBottomColor: '#F0F1F4' }]}>
+            <View style={styles.featureIcon}>
+              <Ionicons name={f.icon} size={20} color={settings.accent} />
+            </View>
+            <View style={styles.featureInfo}>
+              <Text style={styles.featureTitle}>{f.title}</Text>
+              <Text style={styles.featureText}>{f.text}</Text>
+            </View>
+          </View>
+        ))}
+      </View>
 
       {/* Desarrollador */}
       <Text style={styles.groupHead}>DESARROLLADOR</Text>
@@ -146,17 +176,8 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     alignItems: 'center',
   },
-  heroIcon: {
-    width: 56,
-    height: 56,
-    borderRadius: 16,
-    backgroundColor: 'rgba(255,255,255,0.2)',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 14,
-  },
-  heroTitle: { fontSize: 20, fontWeight: '700', color: '#FFFFFF', marginBottom: 6, textAlign: 'center' },
-  heroSub: { fontSize: 14, color: 'rgba(255,255,255,0.8)', lineHeight: 20, textAlign: 'center', marginBottom: 14 },
+  heroTitle: { fontSize: 22, fontWeight: '700', color: '#FFFFFF', marginBottom: 10, textAlign: 'center' },
+  heroSub: { fontSize: 14, color: 'rgba(255,255,255,0.85)', lineHeight: 21, textAlign: 'center', marginBottom: 16 },
   versionRow: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -178,6 +199,23 @@ const styles = StyleSheet.create({
   updateTitle: { fontSize: 14, fontWeight: '600', color: '#FFFFFF' },
   updateSub: { fontSize: 12, color: 'rgba(255,255,255,0.7)', marginTop: 1 },
 
+  objectiveCard: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 16,
+    padding: 18,
+    marginBottom: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.04,
+    shadowRadius: 8,
+    elevation: 1,
+  },
+  objectiveText: {
+    fontSize: 14,
+    color: '#4A5068',
+    lineHeight: 22,
+  },
+
   groupHead: {
     fontSize: 13,
     fontWeight: '500',
@@ -197,6 +235,28 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     elevation: 1,
   },
+
+  featureRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 14,
+    paddingHorizontal: 14,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: '#F0F1F4',
+    gap: 14,
+  },
+  featureIcon: {
+    width: 38,
+    height: 38,
+    borderRadius: 10,
+    backgroundColor: '#2E7D5B10',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  featureInfo: { flex: 1 },
+  featureTitle: { fontSize: 15, fontWeight: '600', color: '#1A1D26', marginBottom: 2 },
+  featureText: { fontSize: 13, color: '#7A8194', lineHeight: 18 },
+
   creditRow: {
     paddingVertical: 12,
     paddingHorizontal: 14,

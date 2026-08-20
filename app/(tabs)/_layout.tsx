@@ -47,7 +47,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="ajustes"
         options={{
-          title: 'Más',
+          title: 'Acerca de',
           tabBarIcon: ({ color }) => (
             <Ionicons name="ellipsis-horizontal-outline" size={22} color={color} />
           ),
