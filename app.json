@@ -26,10 +26,6 @@
       "package": "com.josemejia.calculadora_riego",
       "versionCode": 1
     },
-    "web": {
-      "favicon": "./assets/favicon.png",
-      "bundler": "metro"
-    },
     "plugins": [
       "expo-router",
       "expo-font",
