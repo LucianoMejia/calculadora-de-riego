@@ -3,7 +3,7 @@ import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Linking, Alert } 
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useSettings } from '../_layout';
-import { APP_VERSION, GIT_COMMIT } from '../../lib/gitInfo';
+import Constants from 'expo-constants';
 
 const SOCIALS = [
   { name: 'Instagram', icon: 'logo-instagram' as const, color: '#E4405F', url: 'https://instagram.com/lucianomejia17' },
@@ -63,9 +63,7 @@ export default function AjustesScreen() {
           Herramientas profesionales para el cálculo y manejo del agua en suelo agrícola. Diseñada para ingenieros agrónomos, estudiantes y productores.
         </Text>
         <View style={styles.versionRow}>
-          <Text style={styles.versionText}>v{APP_VERSION}</Text>
-          <Text style={styles.versionDot}>·</Text>
-          <Text style={styles.commitText}>{GIT_COMMIT}</Text>
+          <Text style={styles.versionText}>v{Constants.expoConfig?.version ?? '1.0.0'}</Text>
         </View>
       </View>
 
@@ -184,8 +182,6 @@ const styles = StyleSheet.create({
     gap: 6,
   },
   versionText: { fontSize: 12, fontWeight: '600', color: 'rgba(255,255,255,0.6)' },
-  versionDot: { fontSize: 12, color: 'rgba(255,255,255,0.4)' },
-  commitText: { fontSize: 12, color: 'rgba(255,255,255,0.5)', fontFamily: 'Courier' },
 
   updateBanner: {
     flexDirection: 'row',

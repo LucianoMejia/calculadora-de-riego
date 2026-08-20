@@ -25,9 +25,6 @@
     "typescript": "~6.0.3"
   },
   "scripts": {
-    "gitinfo": "node scripts/updateGitInfo.js",
-    "prestart": "node scripts/updateGitInfo.js",
-    "prebuild": "node scripts/updateGitInfo.js",
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
