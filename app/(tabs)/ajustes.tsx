@@ -32,7 +32,7 @@ export default function AjustesScreen() {
       <View style={styles.heroCard}>
         <Text style={styles.heroTitle}>Calculadora de Riego</Text>
         <Text style={styles.heroSub}>
-          Herramientas profesionales para el cálculo y manejo del agua en suelo agrícola. Diseñada para ingenieros agrónomos, estudiantes y productores.
+          Herramientas profesionales para el cálculo y manejo del agua en suelo. Diseñada para ingenieros, estudiantes y productores.
         </Text>
         <View style={styles.versionRow}>
           <Text style={styles.versionText}>v{Constants.expoConfig?.version ?? '1.0.0'}</Text>
@@ -68,11 +68,8 @@ export default function AjustesScreen() {
       <Text style={styles.groupHead}>DESARROLLADOR</Text>
       <View style={styles.group}>
         <View style={styles.creditRow}>
-          <Text style={styles.creditName}>Nombre</Text>
           <Text style={styles.creditValue}>José Luciano Mejía Arias</Text>
         </View>
-      </View>
-      <View style={styles.group}>
         {SOCIALS.map((s, i) => (
           <TouchableOpacity
             key={s.name}
@@ -213,6 +210,7 @@ const styles = StyleSheet.create({
   creditRow: {
     paddingVertical: 12,
     paddingHorizontal: 14,
+    alignItems: 'center',
   },
   creditName: {
     fontSize: 12,
