@@ -9,7 +9,7 @@
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/icon.png",
+      "image": "./assets/android-icon-foreground.png",
       "resizeMode": "contain",
       "backgroundColor": "#FFFFFF"
     },
