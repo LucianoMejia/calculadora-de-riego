@@ -72,9 +72,6 @@ export default function AjustesScreen() {
           <Text style={styles.creditValue}>José Luciano Mejía Arias</Text>
         </View>
       </View>
-
-      {/* Redes sociales */}
-      <Text style={styles.groupHead}>REDES SOCIALES</Text>
       <View style={styles.group}>
         {SOCIALS.map((s, i) => (
           <TouchableOpacity

@@ -1,7 +1,10 @@
 import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+import * as SplashScreen from 'expo-splash-screen';
 import { loadSettings, saveSettings, type AppSettings } from '../lib/storage';
+
+SplashScreen.preventAutoHideAsync();
 
 interface SettingsContextType {
   settings: AppSettings;
@@ -27,6 +30,12 @@ export default function RootLayout() {
       setLoaded(true);
     });
   }, []);
+
+  useEffect(() => {
+    if (loaded) {
+      SplashScreen.hideAsync();
+    }
+  }, [loaded]);
 
   const updateSettings = useCallback((partial: Partial<AppSettings>) => {
     setSettings((prev) => {
