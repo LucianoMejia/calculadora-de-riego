@@ -24,7 +24,10 @@
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
       "package": "com.josemejia.calculadora_riego",
-      "versionCode": 1
+      "versionCode": 1,
+      "enableMinifyInReleaseBuilds": true,
+      "enableShrinkResourcesInReleaseBuilds": true,
+      "reactNativeArchitectures": ["arm64-v8a"]
     },
     "plugins": [
       "expo-router"

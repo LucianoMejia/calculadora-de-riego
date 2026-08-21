@@ -33,6 +33,14 @@ jobs:
       - name: Generate native Android project
         run: npx expo prebuild --platform android --clean
 
+      - name: Optimize Gradle for smaller APK
+        working-directory: android
+        run: |
+          sed -i 's/android.enableBundleCompression=.*/android.enableBundleCompression=true/' gradle.properties
+          sed -i 's/expo.gif.enabled=.*/expo.gif.enabled=false/' gradle.properties
+          sed -i 's/expo.webp.enabled=.*/expo.webp.enabled=false/' gradle.properties
+          sed -i 's/EX_DEV_CLIENT_NETWORK_INSPECTOR=.*/EX_DEV_CLIENT_NETWORK_INSPECTOR=false/' gradle.properties
+
       - name: Build APK
         working-directory: android
         run: |
