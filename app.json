@@ -9,7 +9,7 @@
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/android-icon-foreground.png",
+      "image": "./assets/inv.png",
       "resizeMode": "contain",
       "backgroundColor": "#FFFFFF"
     },
@@ -22,12 +22,6 @@
       }
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/android-icon-foreground.png",
-        "backgroundImage": "./assets/android-icon-background.png",
-        "monochromeImage": "./assets/android-icon-monochrome.png",
-        "backgroundColor": "#E6F4FE"
-      },
       "package": "com.josemejia.calculadora_riego",
       "versionCode": 1,
       "enableMinifyInReleaseBuilds": true,
@@ -39,7 +33,7 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/icon.png",
+          "image": "./assets/inv.png",
           "resizeMode": "contain",
           "backgroundColor": "#FFFFFF",
           "imageWidth": 200
