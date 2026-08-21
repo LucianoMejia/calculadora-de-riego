@@ -45,7 +45,7 @@ export default function TabsLayout() {
         }}
       />
       <Tabs.Screen
-        name="ajustes"
+        name="acerca_de"
         options={{
           title: 'Acerca de',
           tabBarIcon: ({ color }) => (

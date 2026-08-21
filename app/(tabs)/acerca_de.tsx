@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Linking } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useSettings } from '../_layout';
 import Constants from 'expo-constants';
+import { checkForUpdate, type UpdateInfo } from '../../lib/versionCheck';
 
 const SOCIALS = [
   { name: 'Instagram', icon: 'logo-instagram' as const, color: '#E4405F', url: 'https://instagram.com/lucianomejia17' },
@@ -17,9 +18,14 @@ const FEATURES = [
   { icon: 'cloud-offline-outline' as const, title: '100% offline', text: 'Funciona sin conexión a internet en cualquier momento.' },
 ];
 
-export default function AjustesScreen() {
+export default function AcercaDeScreen() {
   const { settings } = useSettings();
   const insets = useSafeAreaInsets();
+  const [update, setUpdate] = useState<UpdateInfo | null>(null);
+
+  useEffect(() => {
+    checkForUpdate().then(setUpdate);
+  }, []);
 
   return (
     <ScrollView
@@ -38,6 +44,22 @@ export default function AjustesScreen() {
           <Text style={styles.versionText}>v{Constants.expoConfig?.version ?? '1.0.0'}</Text>
         </View>
       </View>
+
+      {/* Update banner */}
+      {update?.hasUpdate && (
+        <TouchableOpacity
+          style={styles.updateBanner}
+          activeOpacity={0.7}
+          onPress={() => Linking.openURL(update.downloadUrl)}
+        >
+          <Ionicons name="arrow-up-circle-outline" size={24} color="#FFFFFF" />
+          <View style={{ flex: 1 }}>
+            <Text style={styles.updateTitle}>Nueva versión disponible</Text>
+            <Text style={styles.updateSub}>v{update.latestVersion} — Toca para actualizar</Text>
+          </View>
+          <Ionicons name="open-outline" size={16} color="rgba(255,255,255,0.6)" />
+        </TouchableOpacity>
+      )}
 
       {/* Objetivo */}
       <Text style={styles.groupHead}>OBJETIVO</Text>
@@ -210,7 +232,6 @@ const styles = StyleSheet.create({
   creditRow: {
     paddingVertical: 12,
     paddingHorizontal: 14,
-    alignItems: 'center',
   },
   creditName: {
     fontSize: 12,
