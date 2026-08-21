@@ -1,4 +1,4 @@
-name: Build & Release Android
+name: Build & Release
 
 on:
   push:
@@ -9,11 +9,17 @@ permissions:
 
 jobs:
   build-android:
-    name: Build APK
+    name: Build Android APK
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -24,18 +30,15 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Setup Expo CLI
-        uses: expo/expo-github-action@v8
-        with:
-          eas-version: latest
-          token: ${{ secrets.EXPO_TOKEN }}
-
-      - name: Generate native Android project
-        run: npx expo prebuild --platform android --clean
-
       - name: Build APK
         working-directory: android
-        run: ./gradlew assembleDebug
+        run: ./gradlew assembleRelease
+
+      - name: Rename APK
+        run: |
+          VERSION=$(node -p "require('./app.json').expo.version")
+          HASH=$(git rev-parse --short HEAD)
+          find android/app/build/outputs/apk -name "*.apk" -exec cp {} "calculadora-de-riego-v${VERSION}-${HASH}.apk" \;
 
       - name: Get version
         id: meta
@@ -50,5 +53,5 @@ jobs:
         with:
           tag_name: ${{ steps.meta.outputs.tag }}
           name: ${{ steps.meta.outputs.name }}
-          files: android/app/build/outputs/apk/**/*.apk
+          files: calculadora-de-riego-*.apk
           generate_release_notes: true

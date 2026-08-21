@@ -27,21 +27,7 @@
       "versionCode": 1
     },
     "plugins": [
-      "expo-router",
-      "expo-font",
-      [
-        "expo-updates",
-        {
-          "url": "https://u.expo.dev/xxx"
-        }
-      ]
-    ],
-    "extra": {
-      "eas": {
-        "projectId": "e719d698-cc29-4e4f-abf7-2adeb06509a6"
-      },
-      "router": {}
-    },
-    "owner": "lucianomejia17"
+      "expo-router"
+    ]
   }
 }

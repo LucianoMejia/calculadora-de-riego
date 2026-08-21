@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Linking, Alert } from 'react-native';
+import React from 'react';
+import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Linking } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useSettings } from '../_layout';
@@ -20,34 +20,6 @@ const FEATURES = [
 export default function AjustesScreen() {
   const { settings } = useSettings();
   const insets = useSafeAreaInsets();
-  const [updateAvailable, setUpdateAvailable] = useState(false);
-  const [updateMsg, setUpdateMsg] = useState('');
-
-  useEffect(() => {
-    checkUpdate();
-  }, []);
-
-  async function checkUpdate() {
-    try {
-      const Updates = await import('expo-updates');
-      const checkFn = Updates.checkForUpdateAsync;
-      if (!checkFn) return;
-      const update = await checkFn();
-      if (update.isAvailable) {
-        setUpdateAvailable(true);
-        setUpdateMsg('Nueva versión disponible');
-      }
-    } catch {}
-  }
-
-  async function applyUpdate() {
-    try {
-      const Updates = await import('expo-updates');
-      await Updates.reloadAsync();
-    } catch {
-      Alert.alert('Actualización', 'No se pudo actualizar. Intenta más tarde.');
-    }
-  }
 
   return (
     <ScrollView
@@ -66,18 +38,6 @@ export default function AjustesScreen() {
           <Text style={styles.versionText}>v{Constants.expoConfig?.version ?? '1.0.0'}</Text>
         </View>
       </View>
-
-      {/* Update banner */}
-      {updateAvailable && (
-        <TouchableOpacity style={styles.updateBanner} onPress={applyUpdate} activeOpacity={0.7}>
-          <Ionicons name="arrow-down-circle-outline" size={22} color="#FFFFFF" />
-          <View style={{ flex: 1 }}>
-            <Text style={styles.updateTitle}>Nueva versión disponible</Text>
-            <Text style={styles.updateSub}>{updateMsg}</Text>
-          </View>
-          <Ionicons name="chevron-forward" size={18} color="#FFFFFF" />
-        </TouchableOpacity>
-      )}
 
       {/* Objetivo */}
       <Text style={styles.groupHead}>OBJETIVO</Text>
