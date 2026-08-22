@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Alert, Keyboard } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { CalcLayout } from '../../components/CalcLayout';
 import { FormField } from '../../components/FormField';
@@ -40,6 +40,7 @@ export default function LaminaScreen() {
   }
 
   async function handleCalc() {
+    Keyboard.dismiss();
     if (layers.length === 0) {
       Alert.alert('Sin capas', 'Agrega al menos una capa del perfil.');
       return;
@@ -75,7 +76,6 @@ export default function LaminaScreen() {
         'W̄ promedio': fmt(total.wProm, 2) + ' %',
       },
     });
-    Alert.alert('Guardado', 'Cálculo guardado en el historial.');
   }
 
   return (
@@ -83,7 +83,7 @@ export default function LaminaScreen() {
       title="Lámina por perfil"
       description="Calcula la lámina de agua por capa del perfil."
       accent={ACCENT}
-      formula="Lam = W × Da × espesor\nW̄ = Σ(Wᵢ·profᵢ) / Σ(profᵢ)"
+      formula={'Lam = W × Da × espesor\nW̄ = Σ(Wᵢ·profᵢ) / Σ(profᵢ)'}
       results={
         calculated && result ? (
           <>

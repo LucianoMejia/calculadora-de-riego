@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, Text, Alert, StyleSheet } from 'react-native';
+import { TouchableOpacity, Text, StyleSheet, Keyboard } from 'react-native';
 import { CalcLayout } from '../../components/CalcLayout';
 import { FormField } from '../../components/FormField';
 import { ResultItem } from '../../components/ResultItem';
@@ -19,6 +19,7 @@ export default function EvapoScreen() {
   const [calculated, setCalculated] = useState(false);
 
   async function handleCalc() {
+    Keyboard.dismiss();
     if (!validate([
       { field: 'Evaporación del tanque (Ev)', value: parseNum(ev), test: v => v > 0, msg: 'La evaporación debe ser mayor a 0.' },
       { field: 'Coeficiente de tanque (Kp)', value: parseNum(kp), test: v => v > 0 && v <= 1, msg: 'Kp debe estar entre 0 y 1.' },
@@ -41,7 +42,6 @@ export default function EvapoScreen() {
         'ETc acumulada': r.etcTotal != null ? fmt(r.etcTotal, 1) + ' mm' : '—',
       },
     });
-    Alert.alert('Guardado', 'Cálculo guardado en el historial.');
   }
 
   return (

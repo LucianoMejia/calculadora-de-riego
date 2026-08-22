@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, Text, Alert, StyleSheet } from 'react-native';
+import { TouchableOpacity, Text, StyleSheet, Keyboard } from 'react-native';
 import { CalcLayout } from '../../components/CalcLayout';
 import { FormField } from '../../components/FormField';
 import { ResultItem } from '../../components/ResultItem';
@@ -21,6 +21,7 @@ export default function LaraScreen() {
   const [calculated, setCalculated] = useState(false);
 
   async function handleCalc() {
+    Keyboard.dismiss();
     const pWcc = parseNum(wcc);
     const pWpmp = parseNum(wpmp);
     if (!validate([
@@ -51,7 +52,6 @@ export default function LaraScreen() {
         'Lámina bruta': r.bruta != null ? fmt(r.bruta, 1) + ' mm' : '—',
       },
     });
-    Alert.alert('Guardado', 'Cálculo guardado en el historial.');
   }
 
   return (
@@ -59,7 +59,7 @@ export default function LaraScreen() {
       title="Agua aprovechable y LARA"
       description="Calcula A.A., ARA, LARA y la lámina bruta de riego."
       accent={ACCENT}
-      formula="A.A. = Wcc − Wpmp\nLARA = NA × LAA\nLámina bruta = LARA / eficiencia"
+      formula={'A.A. = Wcc − Wpmp\nLARA = NA × LAA\nLámina bruta = LARA / eficiencia'}
       results={
         calculated && result ? (
           <>

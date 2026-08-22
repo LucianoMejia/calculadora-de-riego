@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, Text, Alert, StyleSheet } from 'react-native';
+import { TouchableOpacity, Text, Alert, StyleSheet, Keyboard } from 'react-native';
 import { CalcLayout } from '../../components/CalcLayout';
 import { FormField } from '../../components/FormField';
 import { ResultItem } from '../../components/ResultItem';
@@ -18,6 +18,7 @@ export default function VolumenScreen() {
   const [calculated, setCalculated] = useState(false);
 
   async function handleCalc() {
+    Keyboard.dismiss();
     const pLam = parseNum(lam);
     const pArea = parseNum(area);
     const pVol = parseNum(volDirect);
@@ -50,7 +51,6 @@ export default function VolumenScreen() {
         'Lámina': r.lamCalc != null ? fmt(r.lamCalc, 2) + ' mm' : '—',
       },
     });
-    Alert.alert('Guardado', 'Cálculo guardado en el historial.');
   }
 
   return (

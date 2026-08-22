@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, Text, Alert, StyleSheet } from 'react-native';
+import { TouchableOpacity, Text, Alert, StyleSheet, Keyboard } from 'react-native';
 import { CalcLayout } from '../../components/CalcLayout';
 import { FormField } from '../../components/FormField';
 import { ResultItem } from '../../components/ResultItem';
@@ -19,6 +19,7 @@ export default function HumedadScreen() {
   const [calculated, setCalculated] = useState(false);
 
   async function handleCalc() {
+    Keyboard.dismiss();
     const pMsh = parseNum(msh);
     const pMss = parseNum(mss);
     const pWDir = parseNum(wDirect);
@@ -56,7 +57,6 @@ export default function HumedadScreen() {
         'θ%': r.theta != null ? fmt(r.theta, 2) + ' %' : '—',
       },
     });
-    Alert.alert('Guardado', 'Cálculo guardado en el historial.');
   }
 
   return (
@@ -64,7 +64,7 @@ export default function HumedadScreen() {
       title="Humedad del suelo"
       description="Obtén la humedad gravimétrica y conviértela a volumétrica."
       accent={ACCENT}
-      formula="W(%) = (Msh − Mss) / Mss × 100\nθ(%) = W(%) × Da"
+      formula={'W(%) = (Msh − Mss) / Mss × 100\nθ(%) = W(%) × Da'}
       results={
         calculated && result ? (
           <>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Keyboard } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { CalcLayout } from '../../components/CalcLayout';
 import { FormField } from '../../components/FormField';
@@ -38,6 +38,7 @@ export default function BalanceScreen() {
   }
 
   async function handleCalc() {
+    Keyboard.dismiss();
     if (!validate([
       { field: 'LARA', value: parseNum(lara), test: v => v > 0, msg: 'La LARA debe ser mayor a 0.' },
       { field: 'ET diaria', value: parseNum(et), test: v => v > 0, msg: 'La ET diaria debe ser mayor a 0.' },
@@ -55,7 +56,6 @@ export default function BalanceScreen() {
         'Próximo día crítico': r.criticalDay ? `día ${r.criticalDay}` : '—',
       },
     });
-    Alert.alert('Guardado', 'Cálculo guardado en el historial.');
   }
 
   return (
@@ -63,7 +63,7 @@ export default function BalanceScreen() {
       title="Balance hídrico"
       description="Simula día a día la LAS con lluvia, riego y ET."
       accent={ACCENT}
-      formula="Δθ = P + R − Et\nLAS(día) = min(LARA, LAS(día−1) + Δθ)"
+      formula={'Δθ = P + R − Et\nLAS(día) = min(LARA, LAS(día−1) + Δθ)'}
       results={
         calculated && result ? (
           <>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, Text, Alert, StyleSheet } from 'react-native';
+import { TouchableOpacity, Text, StyleSheet, Keyboard } from 'react-native';
 import { CalcLayout } from '../../components/CalcLayout';
 import { FormField } from '../../components/FormField';
 import { ResultItem } from '../../components/ResultItem';
@@ -19,6 +19,7 @@ export default function DensidadScreen() {
   const [calculated, setCalculated] = useState(false);
 
   async function handleCalc() {
+    Keyboard.dismiss();
     const pDa = parseNum(da);
     const pDr = parseNum(dr);
     if (!validate([
@@ -41,7 +42,6 @@ export default function DensidadScreen() {
         'Masa de suelo': r.masa != null ? fmt(r.masa, 0) + ' ton' : '—',
       },
     });
-    Alert.alert('Guardado', 'Cálculo guardado en el historial.');
   }
 
   return (
@@ -49,7 +49,7 @@ export default function DensidadScreen() {
       title="Densidad y porosidad"
       description="Calcula la porosidad de un suelo a partir de su densidad aparente y real."
       accent={ACCENT}
-      formula="η = (1 − Da/Dr) × 100\nmasa/ha (ton) = Da × 100 × prof.(cm) × área(ha)"
+      formula={'η = (1 − Da/Dr) × 100\nmasa/ha (ton) = Da × 100 × prof.(cm) × área(ha)'}
       results={
         calculated && result ? (
           <>
