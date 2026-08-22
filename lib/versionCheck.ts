@@ -24,7 +24,7 @@ export async function checkForUpdate(): Promise<UpdateInfo> {
 
     const data = await res.json();
     const tag: string = data.tag_name ?? '';
-    const latestVersion = tag.replace(/^v/, '');
+    const latestVersion = tag.replace(/^v/, '').split('-')[0];
 
     const downloadUrl = data.html_url ?? `https://github.com/${REPO}/releases/latest`;
 
@@ -37,8 +37,8 @@ export async function checkForUpdate(): Promise<UpdateInfo> {
 }
 
 function compareVersions(a: string, b: string): number {
-  const pa = a.split('.').map(Number);
-  const pb = b.split('.').map(Number);
+  const pa = a.split('.').map((n) => Number(n) || 0);
+  const pb = b.split('.').map((n) => Number(n) || 0);
 
   for (let i = 0; i < Math.max(pa.length, pb.length); i++) {
     const na = pa[i] ?? 0;
